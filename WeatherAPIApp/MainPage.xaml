@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="WeatherAppClone.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontHelper="clr-namespace:WeatherAppClone.Helpers"
+    xmlns:local="clr-namespace:WeatherAppClone.Pages"
+    xmlns:viewModel="clr-namespace:WeatherAPIApp.ViewModels"
+ 
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="True"
+
+    Shell.UnselectedColor="LightGray">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <TabBar >
+        <ShellContent Title="Weather" Route="weather">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static fontHelper:IconFont.Home}" />
+            </ShellContent.Icon>
+            <local:WeatherPage />
+        </ShellContent>
+        
+        <ShellContent Title="Temp">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static fontHelper:IconFont.Thermostat}" />
+            </ShellContent.Icon>
+            <local:TempPage/>
+        </ShellContent>
+        <ShellContent Title="Wind">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static fontHelper:IconFont.Wind_power}" />
+            </ShellContent.Icon>
+            <local:WindPage />
+        </ShellContent>
+        <ShellContent Title="Sun">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static fontHelper:IconFont.Sunny}" />
+            </ShellContent.Icon>
+            <local:SunPage/>
+        </ShellContent>
+        <ShellContent Title="Rain">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static fontHelper:IconFont.Water_drop}" />
+            </ShellContent.Icon>
+            <local:RainPage/>
+        </ShellContent>
+
+    </TabBar>
+    
+    
+    
+    
+    
+    
+</Shell>

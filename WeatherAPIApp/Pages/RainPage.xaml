@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WeatherAppClone.Pages.RainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:WeatherAPIApp.ViewModels"
+    Title="FavoritePage"
+    BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Search Bar -->
+        <SearchBar
+            Margin="0, 20, 0, 10"
+            Placeholder="Search for a city"
+            Text="{Binding SearchQuery, Mode=TwoWay}"
+            SearchCommand="{Binding SearchLocationCommand}"
+            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            HeightRequest="40" />
+
+        <!-- Weather List -->
+        <CollectionView
+            Grid.Row="1"
+            Margin="0"
+            ItemsSource="{Binding WeatherForcastDays}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Padding="15"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        HeightRequest="300"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="StartAndExpand">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Location Name and Temperature -->
+                            <VerticalStackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Spacing="5">
+                                <Label
+                                    FontSize="24"
+                                    Text="{Binding Location.Name}"
+                                    HorizontalOptions="Start" />
+                                <Label
+                                   FontSize="20"
+                                   Text="{Binding Location.Country}"
+                                   HorizontalOptions="Start" />
+                                <Label
+                                    FontSize="15"
+                                    Text="{Binding Location.Localtime}"
+                                     HorizontalOptions="Start" />
+
+
+                            </VerticalStackLayout>
+
+                            <!-- Weather Icon -->
+                            <Image
+                                Grid.Row="0" Grid.Column="1"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Source="{Binding Current.Condition.Icon, StringFormat='https:{0}'}"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+
+                            <!-- Humidity and Wind -->
+                            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,25,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+               
+
+                                <!-- Wind Direction -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                                    
+                                    <Label FontSize="12" Text="Humidity" HorizontalOptions="Center" />
+                                    <Label FontSize="16" Text="{Binding Current.Humidity}" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+
+                                <!-- Wind Speed -->
+                                <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Label FontSize="12" Text="Rain" HorizontalOptions="Center" />
+                                    <Label FontSize="16" Text="{Binding Current.PrecipMm}" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+
+                        
+                             
+                            </Grid>
+
+                            <!-- Hourly Forecast ScrollView -->
+                            <CollectionView
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,20,0,0"
+                                    ItemsLayout="HorizontalList"
+                                    HorizontalScrollBarVisibility="Always"
+                                    ItemsSource="{Binding ForecastHours}">                  
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <VerticalStackLayout Margin="0,0,30,0" Spacing="5">
+                                            <Label HorizontalOptions="Center" Text="{Binding Time, Converter={StaticResource TimeFormatterConverter}}" />
+                                            <Image
+                                                HeightRequest="32"
+                                                HorizontalOptions="Center"
+                                                Source="{Binding Condition.Icon, StringFormat='https:{0}'}"
+                                                WidthRequest="32" />    
+                                            <HorizontalStackLayout HorizontalOptions="Center">
+                                                <Label Text="{Binding Humidity}" />
+                                                
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout HorizontalOptions="Center">
+                                                <Label Text="{Binding PrecipMm}" />
+
+
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
